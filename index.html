@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Привет Принцесса</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #444;
+            background: linear-gradient(135deg, #fdecef, #fff6f8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 22px;
+            box-shadow: 0 12px 35px rgba(255, 182, 193, 0.35);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-weight: 500;
+            color: #d66a7a;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        input {
+            margin-top: 20px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 14px;
+            border: 1px solid #f3c6ce;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 22px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #f2a1b3;
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e88b9f;
+        }
+
+        button:active {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+
+        .error {
+            color: #d9534f;
+            margin-top: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- PIN -->
+<div class="card" id="pinBlock">
+    <h1>Введите код 🔒</h1>
+    <p>Код это дата нашего знакомства 😉 Вспоминай)</p>
+    <input type="password" id="pin" placeholder="ПИН-код">
+    <button onclick="checkPin()">Войти</button>
+    <div class="error" id="error">Неверный код, жанм 😘 Подсказка - месяц декабрь)</div>
+</div>
+
+<!-- STEP 1 -->
+<div class="card" id="step1">
+    <h1>Принцесса ❤️ ты прошла)</h1>
+    <p>Иногда начало хороших отношений начинается с простого шага.</p>
+    <button onclick="nextStep()">Пройти дальше</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="card" id="step2">
+    <h1>Айсу, я бы хотел спросить у тебя…</h1>
+    <p>
+        Я настроен серьёзно.  
+        Ты стала для меня особенным человеком.  
+        Хочу называть тебя своей девушкой и быть твоей опорой.  
+        Станешь моей девушкой?
+    </p>
+    <button onclick="goWhatsapp()">Согласиться 💬</button>
+</div>
+
+<script>
+const correctPin = "1512";
+
+// Изначально скрываем шаги
+document.getElementById("step1").style.display = "none";
+document.getElementById("step2").style.display = "none";
+
+function checkPin() {
+    const pin = document.getElementById("pin").value;
+    if (pin === correctPin) {
+        document.getElementById("pinBlock").style.display = "none";
+        showCard("step1");
+    } else {
+        document.getElementById("error").style.display = "block";
+    }
+}
+
+function nextStep() {
+    hideCard("step1");
+    showCard("step2");
+}
+
+// Показать с анимацией
+function showCard(id) {
+    const el = document.getElementById(id);
+    el.style.display = "block";
+    setTimeout(() => el.classList.add("show"), 50);
+}
+
+// Скрыть с анимацией
+function hideCard(id) {
+    const el = document.getElementById(id);
+    el.classList.remove("show");
+    setTimeout(() => el.style.display = "none", 400);
+}
+
+// WhatsApp с готовым текстом
+function goWhatsapp() {
+    const number = "7006657696"; // твой номер без +
+    const text = encodeURIComponent("Привет! Я согласна быть твоей девушкой ❤️");
+    window.location.href = `https://wa.me/${number}?text=${text}`;
+}
+</script>
+
+</body>
+</html>
