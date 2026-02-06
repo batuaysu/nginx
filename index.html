@@ -14,7 +14,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
         .card {
@@ -87,7 +86,7 @@
 <body>
 
 <!-- PIN -->
-<div class="card" id="pinBlock">
+<div class="card show" id="pinBlock">
     <h1>Введите код 🔒</h1>
     <p>Код это дата нашего знакомства 😉 Вспоминай)</p>
     <input type="password" id="pin" placeholder="ПИН-код">
@@ -106,9 +105,9 @@
 <div class="card" id="step2">
     <h1>Айсу, я бы хотел спросить у тебя…</h1>
     <p>
-        Я настроен серьёзно.  
-        Ты стала для меня особенным человеком.  
-        Хочу называть тебя своей девушкой и быть твоей опорой.  
+        Я настроен серьёзно.<br>
+        Ты стала для меня особенным человеком.<br>
+        Хочу называть тебя своей девушкой и быть твоей опорой.<br>
         Станешь моей девушкой?
     </p>
     <button onclick="goWhatsapp()">Согласиться 💬</button>
@@ -117,14 +116,14 @@
 <script>
 const correctPin = "1512";
 
-// Изначально скрываем шаги
+// Шаги изначально скрыты
 document.getElementById("step1").style.display = "none";
 document.getElementById("step2").style.display = "none";
 
 function checkPin() {
     const pin = document.getElementById("pin").value;
     if (pin === correctPin) {
-        document.getElementById("pinBlock").style.display = "none";
+        hideCard("pinBlock");
         showCard("step1");
     } else {
         document.getElementById("error").style.display = "block";
@@ -136,14 +135,12 @@ function nextStep() {
     showCard("step2");
 }
 
-// Показать с анимацией
 function showCard(id) {
     const el = document.getElementById(id);
     el.style.display = "block";
     setTimeout(() => el.classList.add("show"), 50);
 }
 
-// Скрыть с анимацией
 function hideCard(id) {
     const el = document.getElementById(id);
     el.classList.remove("show");
